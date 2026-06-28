@@ -1,7 +1,7 @@
 # Barnabus 3B
 
-A free, open biblical-ethics language model created by **Kroice of Koinonia AI (KOKAI)**.
-Built on the principle that Scripture should be accessible, citable, and used with clarity and grace.
+A free, open biblical-ethics small language model (SLM) created by **Kroice of Koinonia AI (KOKAI)**.
+At ~3 billion parameters, Barnabus 3B is an SLM, not an LLM.
 
 ## What it is
 
