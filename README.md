@@ -53,6 +53,7 @@ python scripts/train_lora.py \
 
 ## License
 
-MIT. Barnabus 3B is free to use, modify, and distribute.
+Barnabus 3B is built on Meta Llama, so it is governed by the Meta Llama Community License.
+The adapter fine-tune is provided under the same Meta Llama Community License terms.
 
 Kroice of Koinonia AI · KOKAI · 2026
