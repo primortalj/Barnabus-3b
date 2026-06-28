@@ -1,2 +1,58 @@
-# Barnabu-3b
-An llm made with christian ethics.
+# Barnabus 3B
+
+A free, open biblical-ethics language model created by **Kroice of Koinonia AI (KOKAI)**.
+Built on the principle that Scripture should be accessible, citable, and used with clarity and grace.
+
+## What it is
+
+- A fine-tuned small language model for biblical ethics
+- Trained on evangelical Protestant, Sola Scriptura sources
+- Weighs in at ~1.1B parameters (TinyLlama base + LoRA adapter)
+- Designed to run offline on consumer hardware
+
+## What it believes
+
+- The Bible is the final authority for faith and practice
+- Homosexual acts are sin; the persons involved are image-bearers to be loved
+- Truth must never be celebrated as optional or flexible
+- Answers should cite book, chapter, and verse whenever possible
+- Moral clarity and personal dignity belong together
+
+## Sources
+
+- ESV Bible text
+- Evangelical Protestant theology
+- Westminster Shorter Catechism
+- Modern evangelical ethics writers
+
+Excluded by design: Catholic, Orthodox, and mainline Protestant sources.
+
+## Use it
+
+### Ollama
+
+1. Download the released GGUF
+2. Import with the included `Modelfile`
+3. Run: `ollama run barnabus`
+
+### Training
+
+```bash
+uv pip install transformers datasets peft trl torch accelerate bitsandbytes
+
+python scripts/train_lora.py \
+  --model_name TinyLlama/TinyLlama-1.1B-chat-v1.0 \
+  --data_path data/train.jsonl \
+  --output_dir barnabus-3b-lora \
+  --num_epochs 2 \
+  --batch_size 4 \
+  --lora_r 8 \
+  --lora_alpha 16 \
+  --seed 42
+```
+
+## License
+
+MIT. Barnabus 3B is free to use, modify, and distribute.
+
+Kroice of Koinonia AI · KOKAI · 2026
