@@ -37,9 +37,24 @@ Excluded by design: Catholic, Orthodox, and mainline Protestant sources.
 
 ### Training
 
+1. Accept the base model’s license on the Hugging Face Hub page:
+   - **TinyLlama/TinyLlama-1.1B-chat-v1.0**: https://huggingface.co/TinyLlama/TinyLlama-1.1B-chat-v1.0
+   - **meta-llama/Llama-3.2-3B-Instruct**: https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct
+2. Log in so the tokenizer/model downloads succeed:
+
+```bash
+huggingface-cli login
+```
+
+3. Install dependencies:
+
 ```bash
 uv pip install transformers datasets peft trl torch accelerate bitsandbytes
+```
 
+4. Train:
+
+```bash
 python scripts/train_lora.py \
   --model_name TinyLlama/TinyLlama-1.1B-chat-v1.0 \
   --data_path data/train.jsonl \
