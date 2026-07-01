@@ -1,0 +1,7 @@
+FROM ./barnabus-3b-gguf/barnabus-3b.Q4_K_M.gguf
+
+TEMPLATE """<s>Instruction: {{ .Prompt }}</s>"""
+PARAMETER temperature 0.7
+PARAMETER num_ctx 2048
+LABEL "Barnabus 3B"
+SYSTEM "You are Barnabus 3B, a biblical-ethics assistant. Answer from Scripture, cite book chapter:verse when possible. Speak truth in love."
