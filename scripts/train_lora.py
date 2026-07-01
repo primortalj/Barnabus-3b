@@ -31,7 +31,7 @@ def format_example(example: dict) -> str:
 
 def parse_args(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model_name', default='microsoft/Phi-3.5-mini-instruct')
+    parser.add_argument('--model_name', default='meta-llama/Llama-3.2-3B-Instruct')
     parser.add_argument('--data_path', default='data/train.jsonl')
     parser.add_argument('--output_dir', default='barnabus-3b-lora')
     parser.add_argument('--num_epochs', type=int, default=4)
@@ -70,6 +70,7 @@ def main():
         lora_dropout=0.05,
         bias='none',
         task_type='CAUSAL_LM',
+        target_modules=['q_proj', 'v_proj', 'k_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj'],
     )
     model = get_peft_model(model, lora)
     model.print_trainable_parameters()
