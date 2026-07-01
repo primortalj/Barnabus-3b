@@ -73,25 +73,51 @@ def main():
     )
     model = get_peft_model(model, lora)
     model.print_trainable_parameters()
-    trainer = SFTTrainer(
-        model=model,
-        tokenizer=tokenizer,
-        train_dataset=dataset,
-        peft_config=lora,
-        max_seq_length=1024,
-        dataset_text_field='text',
-        args=TrainingArguments(
-            output_dir=args.output_dir,
-            per_device_train_batch_size=args.batch_size,
-            gradient_accumulation_steps=max(1, 8 // args.batch_size),
-            num_train_epochs=args.num_epochs,
-            learning_rate=2e-4,
-            logging_steps=10,
-            save_strategy='epoch',
-            fp16=True,
-            optim='paged_adamw_8bit',
-        ),
-    )
+    # Some installed TRL/SFTTrainer versions no longer accept tokenizer=;
+    # attach it to the model instead for trainer discovery.
+    try:
+        model.tokenizer = tokenizer
+        trainer = SFTTrainer(
+            model=model,
+            train_dataset=dataset,
+            peft_config=lora,
+            max_seq_length=1024,
+            dataset_text_field='text',
+            args=TrainingArguments(
+                output_dir=args.output_dir,
+                per_device_train_batch_size=args.batch_size,
+                gradient_accumulation_steps=max(1, 8 // args.batch_size),
+                num_train_epochs=args.num_epochs,
+                learning_rate=2e-4,
+                logging_steps=10,
+                save_strategy='epoch',
+                fp16=True,
+                optim='paged_adamw_8bit',
+            ),
+        )
+    except TypeError as exc:
+        if 'tokenizer' in str(exc) or 'unexpected keyword argument' in str(exc):
+            trainer = SFTTrainer(
+                model=model,
+                tokenizer=tokenizer,
+                train_dataset=dataset,
+                peft_config=lora,
+                max_seq_length=1024,
+                dataset_text_field='text',
+                args=TrainingArguments(
+                    output_dir=args.output_dir,
+                    per_device_train_batch_size=args.batch_size,
+                    gradient_accumulation_steps=max(1, 8 // args.batch_size),
+                    num_train_epochs=args.num_epochs,
+                    learning_rate=2e-4,
+                    logging_steps=10,
+                    save_strategy='epoch',
+                    fp16=True,
+                    optim='paged_adamw_8bit',
+                ),
+            )
+        else:
+            raise
     trainer.train()
     trainer.model.save_pretrained(args.output_dir)
     tokenizer.save_pretrained(args.output_dir)
