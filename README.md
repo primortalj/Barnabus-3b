@@ -7,7 +7,7 @@ At ~3 billion parameters, Barnabus 3B is an SLM, not an LLM.
 
 - A fine-tuned small language model for biblical ethics
 - Trained on evangelical Protestant, Sola Scriptura sources
-- Weighs in at ~1.1B parameters (TinyLlama base + LoRA adapter)
+- Weighs in at ~3B parameters (Llama 3.1 Instruct GGUF base)
 - Designed to run offline on consumer hardware
 
 ## What it believes
@@ -29,42 +29,14 @@ Excluded by design: Catholic, Orthodox, and mainline Protestant sources.
 
 ## Use it
 
-### Ollama
-
-1. Download the released GGUF
-2. Import with the included `Modelfile`
-3. Run: `ollama run barnabus`
-
-### Training
-
-1. Accept the base model’s license on the Hugging Face Hub page:
-   - **TinyLlama/TinyLlama-1.1B-chat-v1.0**: https://huggingface.co/TinyLlama/TinyLlama-1.1B-chat-v1.0
-   - **meta-llama/Llama-3.2-3B-Instruct**: https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct
-2. Log in so the tokenizer/model downloads succeed:
-
 ```bash
-huggingface-cli login
+ollama pull barnabus-3b
+ollama run barnabus-3b
 ```
 
-3. Install dependencies:
+## Training
 
-```bash
-uv pip install transformers datasets peft trl torch accelerate bitsandbytes
-```
-
-4. Train:
-
-```bash
-python scripts/train_lora.py \
-  --model_name TinyLlama/TinyLlama-1.1B-chat-v1.0 \
-  --data_path data/train.jsonl \
-  --output_dir barnabus-3b-lora \
-  --num_epochs 2 \
-  --batch_size 4 \
-  --lora_r 8 \
-  --lora_alpha 16 \
-  --seed 42
-```
+Local GGUF inference is the supported path at this time. If LoRA fine-tuning is added later, it must use the local GGUF/Llama.cpp pipeline under `D:\hermes\barnabus-3b`.
 
 ## License
 
