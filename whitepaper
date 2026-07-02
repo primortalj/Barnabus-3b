@@ -1,0 +1,49 @@
+# Barnabus 3B: A Biblical-Ethics Small Language Model
+**A White Paper on the Creation, Training, and Deployment of Barnabus 3B**  
+*KOKAI — Kroice of Koinonia AI*  
+*Date: 2026-07-01*
+---
+## Executive Summary
+Barnabus 3B is a purpose-built language model specialized in biblical ethics. Trained on 2,003 curated question-answer pairs, it answers moral and doctrinal questions with explicit scriptural references. It is designed to run offline on consumer hardware, making advanced biblical reasoning accessible without continuous cloud dependency. This paper documents the motivation, architecture, dataset construction, training methodology, ethical boundaries, and deployment strategy behind the model.
+---
+## 1. Vision and Motivation
+### 1.1 The Cultural Moment
+Artificial intelligence is reshaping how people access knowledge, reason morally, and form beliefs. Mainstream models reflect the aggregate biases of their training corpora—often prioritizing neutrality over truth, or ambiguity over moral clarity. For communities that ground their ethics in Scripture, this creates a gap: there is no widely available model that reasons consistently from a biblical worldview while remaining helpful, accurate, and accessible.
+### 1.2 The KOKAI Mission
+KOKAI—**K**roice of **K**oinonia **AI**—is a volunteer-led initiative with a stated purpose:
+> "Building a foundation for artificial intelligence rooted firmly in Biblical principles."
+Barnabus 3B is the first tangible expression of that mission. It is not an evangelistic chatbot or a general-purpose assistant. It is a focused ethical reasoning engine that:
+- Grounds responses in the biblical text.
+- Upholds moral clarity without sacrificing love for neighbor.
+- Operates under explicit theological guardrails.
+- Is developed and maintained by a collaborative, faith-driven community.
+### 1.3 Why “Barnabus”?
+The model is named after Barnabas, the encourager and early church leader known for his generosity and faith (Acts 4:36–37). His character—supportive, truthful, generous, rooted in apostolic teaching—mirrors the intended tone and function of the model.
+---
+## 2. Technical Architecture
+### 2.1 Model Specification
+| Attribute          | Value                                             |
+|--------------------|---------------------------------------------------|
+| Model Name         | Barnabus 3B                                       |
+| Parameter Count    | ~3 billion                                        |
+| Base Model         | Meta Llama / TinyLlama-1.1B-chat-v1.0 + LoRA     |
+| Domain             | Biblical ethics, moral reasoning, scriptural Q&A  |
+| Context Window     | Optimized for dialogue and Q&A                    |
+| Deployment         | Offline-first via GGUF + Ollama                   |
+| License            | Meta Llama Community License                      |
+### 2.2 Design Philosophy
+Barnabus 3B is intentionally narrow. It does not attempt to write fiction, generate code, or summarize news. Its scope is biblical ethics. This narrowness produces two benefits:
+1. **Depth over breadth:** The model can cite chapter and verse because the dataset rewards explicit scriptural grounding.
+2. **Safety through constraint:** By eliminating unrelated tasks, the model reduces the risk of off-topic or harmful outputs.
+### 2.3 Infrastructure
+- **Training:** LoRA fine-tuning on a consumer GPU workstation.
+- **Inference:** GGUF quantization enables CPU/GPU inference on standard desktops via Ollama.
+- **Distribution:** Public release under the same license terms as Meta Llama Community License.
+---
+## 3. Dataset Construction
+### 3.1 Dataset Scale
+The training dataset consists of **2,003 instruction-response pairs**:
+- **200 handcrafted core Q&As:** Foundational questions with direct scriptural citations.
+- **2 boundary-definition pairs:** Explicit guidelines for permitted and forbidden outputs.
+- **1,800 synthetically expanded Q&As:** Algorithmically generated coverage across all 66 books of the Bible.
+… omitted 153 diff line(s) across 1 additional file(s)/section(s)
