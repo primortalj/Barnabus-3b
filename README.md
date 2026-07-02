@@ -30,8 +30,8 @@ Excluded by design: Catholic, Orthodox, and mainline Protestant sources.
 ## Use it
 
 ```bash
-ollama pull barnabus-3b
-ollama run barnabus-3b
+ollama pull kokai/barnabus-3b
+ollama run kokai/barnabus-3b
 ```
 
 ## Training
